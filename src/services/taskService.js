@@ -1,18 +1,19 @@
 const Task = require('../models/Task');
 
-exports.getAllTasks = async (status, search) => {
+exports.getAllTasks = async (status, search, sortBy) => {
   const filter = {};
-  if (status && status !== 'All') {
-    filter.status = status;
-  }
+  if (status && status !== "All") filter.status = status;
+
   if (search) {
-    const regex = new RegExp(search, 'i'); // case-insensitive search
-    filter.$or = [
-      { title: regex },
-      { description: regex }
-    ];
+    const regex = new RegExp(search, "i");
+    filter.$or = [{ title: regex }, { description: regex }];
   }
-  return await Task.find(filter);
+
+  let sort = {};
+  if (sortBy === "createdAt") sort = { createdAt: -1 }; 
+  else if (sortBy === "status") sort = { status: 1 }; 
+
+  return await Task.find(filter).sort(sort);
 };
 
 
