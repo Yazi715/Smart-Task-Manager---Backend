@@ -5,7 +5,6 @@ const express = require('express');
 const connectDB = require('./db');
 const taskRoutes = require('./routes/taskRoutes');
 
-
 const app = express();
 app.use(cors());
 app.use(express.json());

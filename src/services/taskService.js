@@ -3,16 +3,13 @@ const Task = require('../models/Task');
 exports.getAllTasks = async (status, search, sortBy) => {
   const filter = {};
   if (status && status !== "All") filter.status = status;
-
   if (search) {
     const regex = new RegExp(search, "i");
     filter.$or = [{ title: regex }, { description: regex }];
   }
-
   let sort = {};
   if (sortBy === "createdAt") sort = { createdAt: -1 }; 
   else if (sortBy === "status") sort = { status: 1 }; 
-
   return await Task.find(filter).sort(sort);
 };
 
@@ -23,8 +20,7 @@ exports.getTaskById = async (id) => {
 exports.createTask = async (taskData) => {
   const task = new Task(taskData);
   console.log("task created")
-  return await task.save();
-  
+  return await task.save();  
 };
 
 exports.updateTask = async (id, taskData) => {
