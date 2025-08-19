@@ -2,13 +2,14 @@ const taskService = require('../services/taskService');
 
 exports.getTasks = async (req, res) => {
   try {
-    const { status } = req.query;
-    const tasks = await taskService.getAllTasks(status);
+    const { status, search } = req.query;
+    const tasks = await taskService.getAllTasks(status, search);
     res.json(tasks);
   } catch (err) {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
 
 
 exports.getTask = async (req, res) => {

@@ -1,9 +1,20 @@
 const Task = require('../models/Task');
 
-exports.getAllTasks = async (status) => {
-  const filter = status ? { status } : {};
+exports.getAllTasks = async (status, search) => {
+  const filter = {};
+  if (status && status !== 'All') {
+    filter.status = status;
+  }
+  if (search) {
+    const regex = new RegExp(search, 'i'); // case-insensitive search
+    filter.$or = [
+      { title: regex },
+      { description: regex }
+    ];
+  }
   return await Task.find(filter);
 };
+
 
 exports.getTaskById = async (id) => {
   return await Task.findById(id);
