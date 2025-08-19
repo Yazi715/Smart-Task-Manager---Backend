@@ -10,6 +10,7 @@ exports.getTasks = async (req, res) => {
   }
 };
 
+
 exports.getTask = async (req, res) => {
   try {
     const task = await taskService.getTaskById(req.params.id);
