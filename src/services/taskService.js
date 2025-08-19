@@ -16,7 +16,6 @@ exports.getAllTasks = async (status, search, sortBy) => {
   return await Task.find(filter).sort(sort);
 };
 
-
 exports.getTaskById = async (id) => {
   return await Task.findById(id);
 };
