@@ -2,11 +2,11 @@ const taskService = require('../services/taskService');
 
 exports.getTasks = async (req, res) => {
   try {
-    const { status, search, sortBy } = req.query;
-    const tasks = await taskService.getAllTasks(status, search, sortBy);
-    res.json(tasks);
+    const { status, search, sortBy, page = 1, limit = 3 } = req.query;
+    const result = await taskService.getAllTasks(status, search, sortBy, parseInt(page), parseInt(limit));
+    res.json(result);
   } catch (err) {
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 
@@ -28,6 +28,7 @@ exports.createTask = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
+
 
 exports.updateTask = async (req, res) => {
   try {
