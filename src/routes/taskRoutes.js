@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const taskController = require('../controllers/taskController');
+const { authRequired } = require('./auth'); 
+
+router.use(authRequired);
 
 router.get('/', taskController.getTasks);
 router.get('/:id', taskController.getTask);
