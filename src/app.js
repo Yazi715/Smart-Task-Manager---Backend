@@ -3,14 +3,14 @@ console.log(process.env.MONGODB_URI)
 const cors = require('cors');
 const express = require('express');
 const connectDB = require('./db');
-const authRoutes = require('./routes/auth').router;      // <-- added
+const authRoutes = require('./routes/auth').router; 
 const taskRoutes = require('./routes/taskRoutes');
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 connectDB();
-app.use('/auth', authRoutes);      // <-- added
+app.use('/auth', authRoutes);
 app.use('/tasks', taskRoutes);
 
 const PORT = process.env.PORT || 3000;
